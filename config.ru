@@ -8,3 +8,5 @@ end
 get '/:id/bar.x' do
   'pow'
 end
+
+run Sinatra::Application
