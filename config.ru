@@ -1,3 +1,4 @@
+STDOUT.sync = true
 require 'bundler/setup'
 Bundler.require
 
