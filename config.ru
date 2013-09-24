@@ -3,7 +3,7 @@ require 'bundler/setup'
 Bundler.require
 
 get '/' do
-  'hello'
+  "hello. I am running as #{ENV['USER']} "
 end
 
 get '/:id/bar.x' do
