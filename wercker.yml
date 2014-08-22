@@ -9,6 +9,4 @@ build:
     - script:
         name: 'Run tests'
         code: |
-          docker run myapp bundle --without "" && rake test
-
-
+          docker run myapp bundle --without "" && bundle exec rake test
