@@ -4,7 +4,7 @@ build:
     - script:
         name: 'Build docker image'
         code: |
-          docker build . -t myapp
+          docker build -t myapp .
 
     - script:
         name: 'Run tests'
