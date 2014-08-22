@@ -28,6 +28,7 @@ deploy:
     - script:
         name: 'Import artifacts'
         code: |
-          id=$(docker load < $WERCKER_OUTPUT_DIR/sinfail.tar)
+          ls -lh
+          id=$(docker load < sinfail.tar)
           docker tag $id statianzo/sinfail
           docker push statianzo/sinfail
