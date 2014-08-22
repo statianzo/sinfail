@@ -1,4 +1,4 @@
-box: jparyani/docker@1.0.1
+box: wercker-labs/docker
 build:
   steps:
     - script:
