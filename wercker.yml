@@ -4,9 +4,30 @@ build:
     - script:
         name: 'Build docker image'
         code: |
-          docker build -t myapp .
+          docker build -t statianzo/sinfail .
+
+    - script:
+        name: 'Build testing image'
+        code: |
+          id=$(docker run statianzo/sinfail bundle --without '')
+          docker commit $id sinfailtest
 
     - script:
         name: 'Run tests'
         code: |
-          docker run myapp /bin/sh -c "bundle --without '' && bundle exec rake test"
+          docker run sinfailtest bundle exec rake test
+
+    - script:
+        name: 'Create artifacts'
+        code: |
+          mkdir -p $WERCKER_OUTPUT_DIR
+          docker save statianzo/sinfail > $WERCKER_OUTPUT_DIR/sinfail.tar
+
+deploy:
+  steps:
+    - script:
+        name: 'Import artifacts'
+        code: |
+          id=$(docker load < $WERCKER_OUTPUT_DIR/sinfail.tar)
+          docker tag $id statianzo/sinfail
+          docker push statianzo/sinfail
