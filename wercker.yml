@@ -1,13 +1,14 @@
 box: jparyani/docker@1.0.1
 build:
   steps:
+    - script:
+        name: 'Build docker image'
+        code: |
+          docker build . -t myapp
 
-    - name: 'Build docker image'
-      code: |
-        $(docker build . -t myapp)
-
-    - name: 'Run tests'
-      code: |
-        docker run myapp bundle --without "" && rake test
+    - script:
+        name: 'Run tests'
+        code: |
+          docker run myapp bundle --without "" && rake test
 
 
