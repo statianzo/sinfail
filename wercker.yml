@@ -9,8 +9,8 @@ build:
     - script:
         name: 'Build testing image'
         code: |
-          id=$(docker run statianzo/sinfail bundle --without '')
-          docker commit $id sinfailtest
+          docker run --name test_container statianzo/sinfail bundle --without ''
+          docker commit test_container sinfailtest
 
     - script:
         name: 'Run tests'
