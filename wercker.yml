@@ -2,6 +2,13 @@ box: wercker-labs/docker
 build:
   steps:
     - script:
+        name: 'Read Docker cache'
+        code: |
+          if test -d "$WERCKER_CACHE_DIR/docker-cache"; then
+            sudo rsync -avzv "$WERCKER_CACHE_DIR/docker-cache" "/var/lib/docker"
+          fi
+
+    - script:
         name: 'Build docker image'
         code: |
           docker build -t statianzo/sinfail .
@@ -22,6 +29,11 @@ build:
         code: |
           mkdir -p $WERCKER_OUTPUT_DIR
           docker save statianzo/sinfail > $WERCKER_OUTPUT_DIR/sinfail.tar
+
+    - script:
+        name: 'Populate Docker Cache'
+        code: |
+          sudo rsync -avzv "/var/lib/docker" "$WERCKER_CACHE_DIR/docker-cache"
 
 deploy:
   steps:
