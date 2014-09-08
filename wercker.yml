@@ -4,8 +4,7 @@ build:
     - script:
         name: 'Read Docker cache'
         code: |
-          ls -lh "$WERCKER_CACHE_DIR"
-          docker load < "$WERCKER_CACHE_DIR/docker-cache.tar"
+          if [ -f "$WERCKER_CACHE_DIR/docker-cache.tar" ]; then docker load < "$WERCKER_CACHE_DIR/docker-cache.tar"; fi
 
     - script:
         name: 'Build docker image'
@@ -33,6 +32,7 @@ build:
         name: 'Populate Docker Cache'
         code: |
           cp "$WERCKER_OUTPUT_DIR/artifacts.tar" "$WERCKER_CACHE_DIR/docker-cache.tar"
+          ls -lh "$WERCKER_CACHE_DIR"
 
 deploy:
   steps:
