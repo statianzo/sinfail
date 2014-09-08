@@ -4,7 +4,7 @@ build:
     - script:
         name: 'Read Docker cache'
         code: |
-          if [ -d "$WERCKER_CACHE_DIR/docker-cache" ]; then sudo rsync -az "$WERCKER_CACHE_DIR/docker-cache" "/var/lib/docker"; fi
+          if [ -d "$WERCKER_CACHE_DIR/docker-cache.tar" ]; then docker load < "$WERCKER_CACHE_DIR/docker-cache.tar"; fi
 
     - script:
         name: 'Build docker image'
@@ -25,20 +25,20 @@ build:
     - script:
         name: 'Create artifacts'
         code: |
-          mkdir -p $WERCKER_OUTPUT_DIR
-          docker save statianzo/sinfail > $WERCKER_OUTPUT_DIR/sinfail.tar
+          mkdir -p "$WERCKER_OUTPUT_DIR"
+          docker save statianzo/sinfail > "$WERCKER_OUTPUT_DIR/artifacts.tar"
 
     - script:
         name: 'Populate Docker Cache'
         code: |
-          sudo rsync -az "/var/lib/docker" "$WERCKER_CACHE_DIR/docker-cache"
+          cp "$WERCKER_OUTPUT_DIR/artifacts.tar" "$WERCKER_CACHE_DIR/docker-cache.tar"
 
 deploy:
   steps:
     - script:
         name: 'Import artifacts'
         code: |
-          docker load < sinfail.tar
+          docker load < artifacts.tar
 
     - script:
         name: 'Authenticate docker'
