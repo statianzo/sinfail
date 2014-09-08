@@ -4,7 +4,8 @@ build:
     - script:
         name: 'Read Docker cache'
         code: |
-          if [ -f "$WERCKER_CACHE_DIR/docker-cache.tar" ]; then docker load < "$WERCKER_CACHE_DIR/docker-cache.tar"; fi
+          ls -lh "$WERCKER_CACHE_DIR"
+          docker load < "$WERCKER_CACHE_DIR/docker-cache.tar"
 
     - script:
         name: 'Build docker image'
