@@ -4,7 +4,7 @@ build:
     - script:
         name: 'Read Docker cache'
         code: |
-          if [ -d "$WERCKER_CACHE_DIR/docker-cache" ]; then sudo rsync -avzv "$WERCKER_CACHE_DIR/docker-cache" "/var/lib/docker"; fi
+          if [ -d "$WERCKER_CACHE_DIR/docker-cache" ]; then sudo rsync -az "$WERCKER_CACHE_DIR/docker-cache" "/var/lib/docker"; fi
 
     - script:
         name: 'Build docker image'
@@ -31,7 +31,7 @@ build:
     - script:
         name: 'Populate Docker Cache'
         code: |
-          sudo rsync -avzv "/var/lib/docker" "$WERCKER_CACHE_DIR/docker-cache"
+          sudo rsync -az "/var/lib/docker" "$WERCKER_CACHE_DIR/docker-cache"
 
 deploy:
   steps:
