@@ -9,7 +9,7 @@ get '/' do
   erb :index
 end
 
-get '/:id/bar.x' do
+get '/pow' do
   raise 'pow'
 end
 
