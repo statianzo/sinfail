@@ -5,6 +5,12 @@ require 'erb'
 require 'etc'
 require 'socket'
 
+set :logging, development?
+
+head '/check' do
+  halt 200
+end
+
 get '/' do
   erb :index
 end

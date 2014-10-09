@@ -5,12 +5,12 @@ port = ENV['PORT'] || '5000'
 
 environment rack_env
 threads 0, 8
+quiet # disable request logging
 
 if is_deployed
   bind 'unix:///tmp/web_server.sock'
   pidfile '/tmp/web_server.pid'
   stdout_redirect "#{stack_path}/log/#{rack_env}.log", "#{stack_path}/log/#{rack_env}.log", true
-  quiet # disable request logging
 
   daemonize
 else
