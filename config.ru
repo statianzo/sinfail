@@ -10,7 +10,7 @@ get '/' do
 end
 
 get '/:id/bar.x' do
-  'pow'
+  raise 'pow'
 end
 
 run Sinatra::Application
@@ -21,6 +21,9 @@ __END__
 <html>
 <head>
 <title>Sinfail</title>
+<style type="text/css">
+  h1 { color: red; }
+</style>
 </head>
 <body>
 <h1>Hello!</h1>

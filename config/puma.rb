@@ -10,6 +10,7 @@ if is_deployed
   bind 'unix:///tmp/web_server.sock'
   pidfile '/tmp/web_server.pid'
   stdout_redirect "#{stack_path}/log/#{rack_env}.log", "#{stack_path}/log/#{rack_env}.log", true
+  quiet true # disable request logging
 
   daemonize
 else
