@@ -1,1 +1,1 @@
-custom_web: bundle exec puma -p $PORT $PUMA_ARGS
+custom_web: bundle exec puma -C config/puma.rb
