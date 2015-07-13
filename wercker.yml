@@ -1,52 +1,16 @@
-box: wercker-labs/docker
 build:
+  box: peer60/ruby-runner
   steps:
     - script:
-        name: 'Read Docker cache'
+        name: 'Bundle'
         code: |
-          if [ -f "$WERCKER_CACHE_DIR/docker-cache.tar" ]; then docker load < "$WERCKER_CACHE_DIR/docker-cache.tar"; fi
-
-    - script:
-        name: 'Build docker image'
-        code: |
-          docker build -t statianzo/sinfail .
-
-    - script:
-        name: 'Build testing image'
-        code: |
-          docker run --name test_container statianzo/sinfail bundle --without ''
-          docker commit test_container sinfailtest
-
+          bundle install --path=vendor/bundle --without development test
     - script:
         name: 'Run tests'
         code: |
-          docker run sinfailtest bundle exec rake test
-
+          bundle exec rake test
     - script:
-        name: 'Create artifacts'
+        name: 'Remove development gems'
         code: |
-          mkdir -p "$WERCKER_OUTPUT_DIR"
-          docker save statianzo/sinfail > "$WERCKER_OUTPUT_DIR/artifacts.tar"
+          bundle install --clean --path=vendor/bundle --without development test
 
-    - script:
-        name: 'Populate Docker Cache'
-        code: |
-          cp "$WERCKER_OUTPUT_DIR/artifacts.tar" "$WERCKER_CACHE_DIR/docker-cache.tar"
-          ls -lh "$WERCKER_CACHE_DIR"
-
-deploy:
-  steps:
-    - script:
-        name: 'Import artifacts'
-        code: |
-          docker load < artifacts.tar
-
-    - script:
-        name: 'Authenticate docker'
-        code: |
-          docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
-
-    - script:
-        name: 'Push to docker registry'
-        code: |
-          docker push statianzo/sinfail
