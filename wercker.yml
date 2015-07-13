@@ -24,7 +24,8 @@ deploy:
     - internal/docker-push:
         username: $DOCKER_USER
         password: $DOCKER_PASS
-        tag: $WERCKER_GIT_COMMIT
-        repository: peer60/sinfail
         registry: https://registry.hub.docker.com
+        repository: peer60/sinfail
+        tag: $WERCKER_GIT_COMMIT
         ports: "5000"
+        cmd: /pipeline/source/run.sh
