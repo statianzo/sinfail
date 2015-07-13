@@ -1,3 +1,6 @@
 *.swp
 vendor/bundle
 .bundle
+_builds
+_projects
+_steps

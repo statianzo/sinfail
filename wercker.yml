@@ -18,3 +18,12 @@ build:
         code: |
           bundle install --clean --path=vendor/bundle --without development test
 
+deploy:
+  box: ruby:2.1.2
+  steps:
+    - internal/docker-push:
+        username: $DOCKER_USER
+        password: $DOCKER_PASS
+        tag: $WERCKER_GIT_COMMIT
+        repository: peer60/sinfail
+        registry: https://registry.hub.docker.com
