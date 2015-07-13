@@ -1,0 +1,17 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "sinfail1",
+      "image": "peer60/sinfail:02dd978df344e330849c54a1056d482e20718759",
+      "essential": true,
+      "memory": 128
+    },
+    {
+      "name": "sinfail2",
+      "image": "peer60/sinfail:02dd978df344e330849c54a1056d482e20718759",
+      "essential": true,
+      "memory": 128
+    }
+  ]
+}
