@@ -1,6 +1,10 @@
 build:
-  box: peer60/ruby-runner
+  box: ruby
   steps:
+    - script:
+        name: 'Install bundler'
+        code: |
+          gem install bundler --no-rdoc --no-ri
     - script:
         name: 'Bundle'
         code: |
