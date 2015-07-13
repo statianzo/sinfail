@@ -4,3 +4,9 @@ vendor/bundle
 _builds
 _projects
 _steps
+.venv
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
