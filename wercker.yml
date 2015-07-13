@@ -1,5 +1,5 @@
 build:
-  box: ruby:2.2
+  box: ruby:2.1.2
   steps:
     - script:
         name: 'Install bundler'
