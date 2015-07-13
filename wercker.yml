@@ -27,3 +27,4 @@ deploy:
         tag: $WERCKER_GIT_COMMIT
         repository: peer60/sinfail
         registry: https://registry.hub.docker.com
+        ports: "5000"
